@@ -3,7 +3,7 @@ require 'webrick'
 
 module GoModule
   extend FFI::Library
-  ffi_lib ['mock_opr_ngx', '/home/ldeng/1/work/go/src/github.com/ldeng7/gonginx/libgonginx.so']
+  ffi_lib ['go_server', '/home/ldeng/1/work/go/src/github.com/ldeng7/gonginx/libgonginx.so']
   attach_function :setStr, [:string], :void
   attach_function :startServer, [:int], :void
 end
