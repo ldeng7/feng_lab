@@ -3,6 +3,7 @@ import ctypes
 funcs = {
 	"xlangc": "cFun",
 	"xlanggo": "goFun",
+    "xlangrust": "rustFun",
 }
 
 for lib_name in funcs:

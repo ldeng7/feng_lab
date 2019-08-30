@@ -3,10 +3,11 @@ local ffi = require "ffi"
 local funcs = {
 	xlangc = "cFun",
 	xlanggo = "goFun",
+	xlangrust = "rustFun",
 }
 
 for lib_name, fun_name in pairs(funcs) do
-    ffi.cdef("int " .. fun_name .. "(void* s, int i);")
+    ffi.cdef("int " .. fun_name .. "(char *s, int i);")
     local lib = ffi.load(lib_name)
     local f = lib[fun_name]
 

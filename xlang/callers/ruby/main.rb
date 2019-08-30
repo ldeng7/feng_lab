@@ -3,6 +3,7 @@ require 'ffi'
 $funcs = {
   xlangc: :cFun,
   xlanggo: :goFun,
+  xlangrust: :rustFun,
 }
 
 module FLib
