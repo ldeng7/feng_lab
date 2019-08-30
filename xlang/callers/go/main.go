@@ -2,8 +2,8 @@ package main
 
 /*
 #cgo CFLAGS: -I ../../callees/include
-#cgo LDFLAGS: -L ../../callees/lib -lxlanggo
-#include "xlanggo.h"
+#cgo LDFLAGS: -L ../../callees/lib -lxlangc -lxlanggo
+#include "xlangcallees.h"
 */
 import "C"
 import (
@@ -11,16 +11,16 @@ import (
 	"unsafe"
 )
 
-func getDataPtrOfByteSlice(bs []byte) unsafe.Pointer {
-	return unsafe.Pointer((*reflect.SliceHeader)(unsafe.Pointer(&bs)).Data)
-}
-
-func callGo() {
-	buf := make([]byte, 5)
-	println(C.goFun(1, getDataPtrOfByteSlice(buf)))
-	println(string(buf))
+var funcs = []func(unsafe.Pointer, C.int) C.int{
+	func(p unsafe.Pointer, i C.int) C.int { return C.cFun(p, i) },
+	func(p unsafe.Pointer, i C.int) C.int { return C.goFun(p, i) },
 }
 
 func main() {
-	callGo()
+	for _, f := range funcs {
+		buf := []byte("go calls xxxx")
+		p := (*reflect.SliceHeader)(unsafe.Pointer(&buf)).Data
+		l := f(unsafe.Pointer(p), 9)
+		println(string(buf[:l]))
+	}
 }

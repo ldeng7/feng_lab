@@ -1,5 +1,10 @@
 ### callees
 
+#### c
+```
+gcc -c -fpic lib.c && gcc -shared lib.o -o ../lib/libxlangc.so && rm lib.o
+```
+
 #### go
 ```
 go build -buildmode=c-shared -o ../lib/libxlanggo.so && rm ../lib/libxlanggo.h

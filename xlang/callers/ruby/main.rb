@@ -1,15 +1,20 @@
 require 'ffi'
 
-module GoLib
+$funcs = {
+  xlangc: :cFun,
+  xlanggo: :goFun,
+}
+
+module FLib
   extend FFI::Library
-  ffi_lib ['go_lib', 'xlanggo']
-  attach_function :goFun, [:int, :pointer], :int
+  $funcs.each do |lib_name, fun_name|
+    ffi_lib lib_name
+    attach_function fun_name, [:pointer, :int], :int
+  end
 end
 
-def call_go()
-  buf = FFI::MemoryPointer.new :char, 5
-  puts GoLib.goFun 1, buf
-  puts buf.read_string
+$funcs.each do |_, fun_name|
+  buf = FFI::MemoryPointer.from_string "ruby calls xxxx"
+  l = FLib.send fun_name, buf, 11
+  puts buf.read_string[0...l]
 end
-
-call_go
