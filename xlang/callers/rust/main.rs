@@ -12,7 +12,7 @@ static FUNCS: &[unsafe extern fn(*mut u8, i32) -> i32] = &[
 ];
 
 fn main() {
-	for f in FUNCS {
+    for f in FUNCS {
         let mut s = String::from("rust calls xxxx");
         let l: i32;
         unsafe { l = f(s.as_mut_ptr(), 11); }

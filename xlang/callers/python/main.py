@@ -1,8 +1,8 @@
 import ctypes
 
 funcs = {
-	"xlangc": "cFun",
-	"xlanggo": "goFun",
+    "xlangc": "cFun",
+    "xlanggo": "goFun",
     "xlangrust": "rustFun",
 }
 
