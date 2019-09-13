@@ -17,5 +17,5 @@ fn main() {
         let l: i32;
         unsafe { l = f(s.as_mut_ptr(), 11); }
         println!("{}", s.get(.. (l as usize)).unwrap());
-	}
+    }
 }
